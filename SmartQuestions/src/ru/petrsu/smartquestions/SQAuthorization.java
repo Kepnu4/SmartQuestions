@@ -42,6 +42,5 @@ public class SQAuthorization extends Activity implements OnClickListener{
     }
 
 	public void onClick(View v) {
-		
 	}
 }
