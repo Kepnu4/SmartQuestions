@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">SmartQuestions</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_sqauthorization">SmartQuestions</string>
+    <string name="ButtonEnter">Вход</string>
+    <string name="ButtonRegister">Регистрация</string>
+    <color name="AuthLayoutBackground">#4C5866</color>
+    <color name="white">#FFFFFF</color>
+</resources>
