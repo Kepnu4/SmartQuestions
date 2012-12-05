@@ -132,10 +132,16 @@ public class SQDBAdapter {
 	protected SQLiteDatabase db;
 	protected SQDBHelper dbHelper;
 	
+	/*
+	 * Opens database, call before use database
+	 */
 	public void open () {
 		db = dbHelper.getWritableDatabase();
 	}
 	
+	/*
+	 * closes database, call when work is done
+	 */
 	public void close() {
 		db.close();
 	}
