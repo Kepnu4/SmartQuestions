@@ -1,5 +1,7 @@
 package ru.petrsu.smartquestions;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -144,6 +146,69 @@ public class SQDBAdapter {
 	 */
 	public void close() {
 		db.close();
+	}
+	
+	/*
+	 * Checks if user with such nickname and password exists
+	 */
+	public boolean ifUserExist (String nickname, String password) {
+		//TODO
+		return false;
+	}
+	
+	/*
+	 * returns User with such nickname and password
+	 */
+	public User getUser (String nickname, String password) {
+		//TODO
+		return null;
+	}
+	
+	/*
+	 * add User in the database
+	 * @param	topics
+	 * 				topics in witch the user is fucking pro
+	 */
+	public void addUser (User user, String[] topics) {
+		//TODO
+	}
+	
+	/*
+	 * Returns all questions that was ever asked by the user
+	 */
+	public ArrayList <Question> getAllQuestions (User user) {
+		//TODO
+		return null;
+	}
+	
+	/*
+	 * Returns all answers that was ever given by the user
+	 */
+	public ArrayList <Answer> getAllAnswersFromUser (User user) {
+		//TODO
+		return null;
+	}
+	
+	/*
+	 * Returns all answers that was ever given for the question
+	 */
+	public ArrayList <Answer> getAllAnswersFromQuestion (Question q) {
+		//TODO
+		return null;
+	}
+	
+	/*
+	 * Adds the question in the database
+	 */
+	public void addQuestion (Question q) {
+		//TODO
+	}
+	
+	/*
+	 * Adds the answer in the database
+	 */
+	public void addAnswer (Answer answer) {
+		//TODO
 	}
 
 	
