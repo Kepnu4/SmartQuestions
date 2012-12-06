@@ -2,6 +2,7 @@ package ru.petrsu.smartquestions;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,15 +12,15 @@ import android.util.Log;
 
 public class SQDBAdapter {
 	protected static String DATABASE_NAME = "SimpleQuestions";
-	protected static int DATABASE_VERSION = 4;
+	protected static int DATABASE_VERSION = 5;
 	
 	//tblUsers constants
 	public static String USER_TABLE_NAME = "tblUsers";
 	
 	protected static int USER_COL_ID = 0;
 	protected static int USER_COL_NICKNAME = 1;
-	protected static int USER_COL_DATE = 2;
-	protected static int USER_COL_PASSWORD = 3;
+	protected static int USER_COL_PASSWORD = 2;
+	protected static int USER_COL_DATE = 3;
 	protected static int USER_COL_RATE = 4;
 	
 	protected static String USER_KEY_ID = "_id";
@@ -151,19 +152,53 @@ public class SQDBAdapter {
 	}
 	
 	/*
+	 * Checks if user with such nickname exists
+	 */
+	public boolean ifUserExist (String nickname) {
+		User a = getUser (nickname);
+		
+		if (a == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	/*
 	 * Checks if user with such nickname and password exists
 	 */
 	public boolean ifUserExist (String nickname, String password) {
-		//TODO
-		return false;
+		User a = getUser (nickname);
+		
+		Log.d("db", "start checkin " + a.getNickname() + a.getPassword());
+		if (a == null || !password.equals(a.getPassword())) {
+			Log.d("db", "check:false");
+			return false;
+		}
+		Log.d("db", "check:true");
+		return true;
 	}
+	
 	
 	/*
 	 * returns User with such nickname and password
 	 */
-	public User getUser (String nickname, String password) {
-		//TODO
-		return null;
+	public User getUser (String nickname) {
+		String selection = USER_KEY_NICKNAME + "=\"" + nickname + "\"";
+		
+		Cursor c = db.query(USER_TABLE_NAME, new String[] { USER_KEY_ID,
+															USER_KEY_NICKNAME,
+															USER_KEY_PASSWORD,
+															USER_KEY_DATE, 
+															USER_KEY_RATE }, selection, null, null, null, null);
+		c.moveToNext();
+		
+		if (c == null || c.isAfterLast()) {
+			return null;
+		}
+		
+		Log.d("db", "gere");
+		return new User (c.getString(USER_COL_NICKNAME), c.getString(USER_COL_PASSWORD), 
+						 c.getString(USER_COL_DATE), c.getInt(USER_COL_RATE), c.getInt(USER_COL_ID));
 	}
 	
 	/*
@@ -172,7 +207,13 @@ public class SQDBAdapter {
 	 * 				topics in witch the user is fucking pro
 	 */
 	public void addUser (User user, String[] topics) {
-		//TODO
+		ContentValues a = new ContentValues();
+		a.put(USER_KEY_NICKNAME, user.getNickname());
+		a.put(USER_KEY_PASSWORD, user.getPassword());
+		a.put(USER_KEY_DATE, user.getDate());
+		a.put(USER_KEY_RATE, user.getRate());
+		
+		db.insert(USER_TABLE_NAME, null, a);
 	}
 	
 	/*
