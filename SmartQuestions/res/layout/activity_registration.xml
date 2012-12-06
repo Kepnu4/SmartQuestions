@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical"
+    android:background="@color/AuthLayoutBackground">
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/RegistrationNameString"/>
+    <EditText
+        android:id="@+id/EditTextName"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp">
+    </EditText>
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/RegistrationLoginString"/>
+    <EditText
+        android:id="@+id/EditTextLogin"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp">
+    </EditText>
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/RegistrationPasswordString"/>
+    <EditText
+        android:id="@+id/EditTextPassword"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp">
+    </EditText>
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/RegistrationTopicsString"/>
+    <GridView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:choiceMode="multipleChoice"
+        android:id="@+id/GridViewTopics">
+    </GridView>
+    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/RegistrationSendString"
+        android:id="@+id/ButtonSend"
+        android:focusable="false">
+    </Button>
+
+</LinearLayout>

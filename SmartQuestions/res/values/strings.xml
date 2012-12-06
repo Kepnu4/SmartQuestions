@@ -6,6 +6,15 @@
     <string name="title_activity_sqauthorization">SmartQuestions</string>
     <string name="ButtonEnter">Вход</string>
     <string name="ButtonRegister">Регистрация</string>
+
     <color name="AuthLayoutBackground">#4C5866</color>
     <color name="white">#FFFFFF</color>
+
+    <string name="RegistrationNameString"> Name </string>
+    <string name="title_activity_sqregistration">SQRegistration</string>
+    <string name="RegistrationLoginString">Login </string>
+    <string name="RegistrationPasswordString">Password</string>
+    <string name="RegistrationTopicsString">Topics</string>
+    <string name="RegistrationSendString">Send</string>
+
 </resources>

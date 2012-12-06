@@ -3,13 +3,15 @@ package ru.petrsu.smartquestions;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class SQDBAdapter {
 	protected static String DATABASE_NAME = "SimpleQuestions";
-	protected static int DATABASE_VERSION = 1;
+	protected static int DATABASE_VERSION = 4;
 	
 	//tblUsers constants
 	public static String USER_TABLE_NAME = "tblUsers";
@@ -26,7 +28,7 @@ public class SQDBAdapter {
 	protected static String USER_KEY_PASSWORD = "password";
 	protected static String USER_KEY_RATE = "rate";
 	protected static String USER_TABLE_CREATE = "CREATE TABLE " + USER_TABLE_NAME + " ( " +
-							USER_KEY_ID + " INT PRIMARY KEY AUTOINCREMENT, " + 
+							USER_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
 							USER_KEY_NICKNAME + " TEXT, " + 
 							USER_KEY_DATE + " TEXT, " + 
 							USER_KEY_PASSWORD + " TEXT, " +
@@ -42,7 +44,7 @@ public class SQDBAdapter {
 	protected static String TOPIC_KEY_ID = "_id";
 	protected static String TOPIC_KEY_NAME = "name";
 	protected static String TOPIC_TABLE_CREATE = "CREATE TABLE " + TOPIC_TABLE_NAME + " ( " +
-							TOPIC_KEY_ID + " INT PRIMARY KEY AUTOINCREMENT, " + 
+							TOPIC_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
 							TOPIC_KEY_NAME + " TEXT);";
 	protected static String TOPIC_TABLE_DROP = "DROP TABLE " + TOPIC_TABLE_NAME + ";";
 	
@@ -69,7 +71,7 @@ public class SQDBAdapter {
 	protected static String QUESTION_KEY_RATE = "rate";
 	protected static String QUESTION_KEY_TEXT = "text";
 	protected static String QUESTION_TABLE_CREATE = "CREATE TABLE " + QUESTION_TABLE_NAME + " ( " +
-							QUESTION_KEY_ID + " INT PRIMARY KEY AUTOINCREMENT, " + 
+							QUESTION_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
 							QUESTION_KEY_TOPICID + " INT REFERENCES " + TOPIC_TABLE_NAME + " ( " 
 												 + TOPIC_KEY_ID + " ) " + " ON UPDATE CASCADE, " +
 							QUESTION_KEY_TITLE + " TEXT, " +
@@ -101,7 +103,7 @@ public class SQDBAdapter {
 	protected static String ANSWER_KEY_RATE = "rate";
 	protected static String ANSWER_KEY_TEXT = "text";
 	protected static String ANSWER_TABLE_CREATE = "CREATE TABLE " + ANSWER_TABLE_NAME + " ( " +
-							ANSWER_KEY_ID + " INT PRIMARY KEY AUTOINCREMENT, " + 
+							ANSWER_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
 							ANSWER_KEY_QUESTIONID + " INT REFERENCES " + QUESTION_TABLE_NAME + " ( " 
 						 						  + QUESTION_KEY_ID + " ) " + "ON UPDATE CASCADE, " +
 							ANSWER_KEY_USERID + " INT REFERENCES " + USER_TABLE_NAME + " ( " 
@@ -123,7 +125,7 @@ public class SQDBAdapter {
 	protected static String TOPICUSER_KEY_USERID = "userID";
 	protected static String TOPICUSER_KEY_TOPICID = "topicID";
 	protected static String TOPICUSER_TABLE_CREATE = "CREATE TABLE " + TOPICUSER_TABLE_NAME + " ( " +
-							TOPICUSER_KEY_ID + " INT PRIMARY KEY AUTOINCREMENT, " +
+							TOPICUSER_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 							TOPICUSER_KEY_USERID + " INT REFERENCES " + USER_TABLE_NAME + " ( "
 												 + USER_KEY_ID + " ) " + "ON UPDATE CASCADE, " + 
 							TOPICUSER_KEY_TOPICID + " INT REFERENCES " + TOPICUSER_TABLE_NAME + " ( "
@@ -210,6 +212,32 @@ public class SQDBAdapter {
 	public void addAnswer (Answer answer) {
 		//TODO
 	}
+	
+	/*
+	 * Returns all existing topics
+	 */
+	public String[] getAllTopics () {
+		Cursor c = db.query(TOPIC_TABLE_NAME, new String[] { TOPIC_KEY_ID, TOPIC_KEY_NAME }, null, null, null, null, null);
+		
+		Log.d("db", "here");
+		if (c == null || c.isAfterLast()) {
+			return null;
+		}
+		Log.d("db", c.getCount() + "");
+		
+		String ret[] = new String[c.getCount()];
+		
+		for (int i = 0;i < ret.length;i++) {
+			c.moveToNext();
+			Log.d("db", i + " " + c.isLast() +  " " + c.isAfterLast());
+			ret[i] = c.getString(TOPIC_COL_NAME);
+			Log.d("db", ret[i]);
+		}
+		
+		c.close();
+		
+		return ret;
+	}
 
 	
 	public SQDBAdapter (Context context) {
@@ -229,6 +257,12 @@ public class SQDBAdapter {
 			_db.execSQL(ANSWER_TABLE_CREATE);
 			_db.execSQL(TOPIC_TABLE_CREATE);
 			_db.execSQL(TOPICUSER_TABLE_CREATE);
+			
+			_db.execSQL("INSERT INTO " + TOPIC_TABLE_NAME + " ( " + TOPIC_KEY_NAME + " ) VALUES " + " (\"Математика\");");
+			_db.execSQL("INSERT INTO " + TOPIC_TABLE_NAME + " ( " + TOPIC_KEY_NAME + " ) VALUES " + " (\"Физика\");");
+			_db.execSQL("INSERT INTO " + TOPIC_TABLE_NAME + " ( " + TOPIC_KEY_NAME + " ) VALUES " + " (\"Химия\");");
+			_db.execSQL("INSERT INTO " + TOPIC_TABLE_NAME + " ( " + TOPIC_KEY_NAME + " ) VALUES " + " (\"История\");");
+			_db.execSQL("INSERT INTO " + TOPIC_TABLE_NAME + " ( " + TOPIC_KEY_NAME + " ) VALUES " + " (\"Жиртрес\");");
 		}
 
 		@Override
