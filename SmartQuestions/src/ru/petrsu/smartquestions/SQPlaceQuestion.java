@@ -121,6 +121,7 @@ public class SQPlaceQuestion extends Activity implements OnClickListener{
 			
 			//go to my questions here
 			startActivity (new Intent (this, SQMyQuestions.class));
+			finish();
 		}
 	}
 

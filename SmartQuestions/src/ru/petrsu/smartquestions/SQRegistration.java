@@ -140,7 +140,7 @@ public class SQRegistration extends Activity implements OnClickListener{
     	if (ok) {
     		db.addUser(new User (stringLogin, stringPassword,  "", START_RATE), getCheckedTopics());
     		
-    		SharedPreferences s = getPreferences(MODE_PRIVATE);
+    		SharedPreferences s = getSharedPreferences(getString (R.string.file_preferences), MODE_PRIVATE);
     		Editor e = s.edit();
     		
     		e.putString(getString(R.string.preferences_login_key), stringLogin);
@@ -149,6 +149,7 @@ public class SQRegistration extends Activity implements OnClickListener{
     		e.commit();
     		
     		startActivity (new Intent (this, SQProfile.class));
+    		finish();
     	}
     }
 
