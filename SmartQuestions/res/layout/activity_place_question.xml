@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SQPlaceQuestion" >
+
+    <EditText
+        android:id="@+id/EditTextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:inputType="text"
+        android:hint="@string/hint_placeQuestionTitle"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Spinner
+        android:id="@+id/SpinnerTopics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/EditTextTitle"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/EditTextAward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/SpinnerTopics"
+        android:inputType="number"
+        android:hint="@string/hint_placeQuestionAward"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/EditTextTimeout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/EditTextAward"
+        android:inputType="time"
+        android:hint="@string/hint_placeQuestionTimeout"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/EditTextText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/EditTextTimeout"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:hint="@string/hint_placeQuestionText" />
+
+    <Button
+        android:id="@+id/ButtonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="18dp"
+        android:text="@string/placeQuestionButtonBack" />
+
+    <Button
+        android:id="@+id/ButtonSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ButtonBack"
+        android:layout_centerHorizontal="true"
+        android:text="@string/placeQuestionButtonSend" />
+
+</RelativeLayout>
