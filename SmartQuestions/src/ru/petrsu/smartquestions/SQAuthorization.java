@@ -37,8 +37,9 @@ public class SQAuthorization extends Activity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
-        
+        Log.d("auth", "here1");
         initLayout();
+        Log.d("auth", "here2");
     }
 
     @Override

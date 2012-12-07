@@ -24,10 +24,19 @@
     <string name="myQuestions">Мои вопросы</string>
     <string name="answer">Отвечать</string>
     <string name="placeQuestion">Разместить вопрос</string>
-    
     <string name="preferences_login_key">login</string>
     <string name="preferences_password_key">password</string>
-    
+    <string name="preferences_question_id_key">password</string>
     <string name="file_preferences">myPreferences</string>
+    <string name="title_activity_sqplace_question">SQPlaceQuestion</string>
+    <string name="placeQuestionButtonSend">Send</string>
+    <string name="placeQuestionButtonBack">Back</string>
+    <string name="hint_placeQuestionTitle">title</string>
+    <string name="hint_placeQuestionAward">Award</string>
+    <string name="hint_placeQuestionTimeout">Timeout</string>
+    <string name="hint_placeQuestionText">write text of a question here</string>
+    <string name="error_empty_fields">empty field</string>
+    <string name="error_no_errors">fine</string>
+    <string name="title_activity_sqmy_questions">SQMyQuestions</string>
 
 </resources>

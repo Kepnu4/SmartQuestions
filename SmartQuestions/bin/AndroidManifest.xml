@@ -32,6 +32,14 @@
             android:name="ru.petrsu.smartquestions.SQProfile"
             android:label="@string/title_activity_sqprofile" >
         </activity>
+        <activity
+            android:name="ru.petrsu.smartquestions.SQPlaceQuestion"
+            android:label="@string/title_activity_sqplace_question" >
+        </activity>
+        <activity
+            android:name="ru.petrsu.smartquestions.SQMyQuestions"
+            android:label="@string/title_activity_sqmy_questions" >
+        </activity>
     </application>
 
 </manifest>

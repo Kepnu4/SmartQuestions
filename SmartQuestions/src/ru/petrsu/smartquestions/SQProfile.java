@@ -2,6 +2,7 @@ package ru.petrsu.smartquestions;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
@@ -67,7 +68,7 @@ public class SQProfile extends Activity implements OnClickListener{
 		SQDBAdapter db = new SQDBAdapter(this);
 		db.open();
 		
-		user = db.getUser(log);
+		user = db.getUserByNickname(log);
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class SQProfile extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ButtonPlaceQuestion:
-			//TODO
+			startActivity (new Intent (this, SQPlaceQuestion.class));
 			break;
 		case R.id.ButtonAnswer:
 			//TODO
@@ -89,7 +90,7 @@ public class SQProfile extends Activity implements OnClickListener{
 			//TODO
 			break;
 		case R.id.ButtonMyQuestions:
-			//TODO
+			startActivity (new Intent (this, SQMyQuestions.class));
 			break;
 		case R.id.ButtonExit:
 			//TODO

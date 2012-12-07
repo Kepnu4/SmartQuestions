@@ -155,7 +155,7 @@ public class SQDBAdapter {
 	 * Checks if user with such nickname exists
 	 */
 	public boolean ifUserExist (String nickname) {
-		User a = getUser (nickname);
+		User a = getUserByNickname (nickname);
 		
 		if (a == null) {
 			return false;
@@ -167,7 +167,7 @@ public class SQDBAdapter {
 	 * Checks if user with such nickname and password exists
 	 */
 	public boolean ifUserExist (String nickname, String password) {
-		User a = getUser (nickname);
+		User a = getUserByNickname (nickname);
 		
 		Log.d("db", "start checkin " + a.getNickname() + a.getPassword());
 		if (a == null || !password.equals(a.getPassword())) {
@@ -182,7 +182,7 @@ public class SQDBAdapter {
 	/*
 	 * returns User with such nickname and password
 	 */
-	public User getUser (String nickname) {
+	public User getUserByNickname (String nickname) {
 		String selection = USER_KEY_NICKNAME + "=\"" + nickname + "\"";
 		
 		Cursor c = db.query(USER_TABLE_NAME, new String[] { USER_KEY_ID,
@@ -199,6 +199,27 @@ public class SQDBAdapter {
 		Log.d("db", "gere");
 		return new User (c.getString(USER_COL_NICKNAME), c.getString(USER_COL_PASSWORD), 
 						 c.getString(USER_COL_DATE), c.getInt(USER_COL_RATE), c.getInt(USER_COL_ID));
+	}
+	
+	/*
+	 * returns user from userid
+	 */
+	
+	public User getUserById (int id) {
+		String selection = USER_KEY_ID + "=" + id;
+		
+		Cursor c = db.query(USER_TABLE_NAME, new String[] { USER_KEY_ID,
+															USER_KEY_NICKNAME,
+															USER_KEY_PASSWORD,
+															USER_KEY_DATE, 
+															USER_KEY_RATE }, selection, null, null, null, null);
+		if (c == null || c.isLast()) {
+			return null;
+		}
+		c.moveToNext();
+		
+		return new User (c.getString(USER_COL_NICKNAME), c.getString(USER_COL_PASSWORD), 
+				 c.getString(USER_COL_DATE), c.getInt(USER_COL_RATE), c.getInt(USER_COL_ID));
 	}
 	
 	/*
@@ -219,9 +240,32 @@ public class SQDBAdapter {
 	/*
 	 * Returns all questions that was ever asked by the user
 	 */
-	public ArrayList <Question> getAllQuestions (User user) {
-		//TODO
-		return null;
+	public Question[] getAllQuestions (User user) {
+		String selection = QUESTION_KEY_USERID + "=" + user.getID();
+		
+		Cursor c = db.query(QUESTION_TABLE_NAME, new String[] {QUESTION_KEY_ID,
+															   QUESTION_KEY_TOPICID,
+															   QUESTION_KEY_TITLE,
+															   QUESTION_KEY_USERID,
+															   QUESTION_KEY_TIMECREATE,
+															   QUESTION_KEY_TIMEOUT,
+															   QUESTION_KEY_STATUS,
+															   QUESTION_KEY_RATE,
+															   QUESTION_KEY_TEXT },
+															   selection, null, null, null, null);
+		Question[] ret = new Question[c.getCount()];
+		
+		Log.d("db", ret.length + " " + user.getID());
+		
+		for (int i = 0;i < ret.length;i++) {
+			c.moveToNext();
+			ret[i] = new Question (c.getInt(QUESTION_COL_ID), c.getInt(QUESTION_COL_TOPICID),
+								   c.getString(QUESTION_COL_TITLE), getUserById (c.getInt(QUESTION_COL_USERID)),
+								   c.getString(QUESTION_COL_TIMECREATE), c.getInt(QUESTION_COL_TIMEOUT),
+								   c.getInt(QUESTION_COL_STATUS), c.getInt(QUESTION_COL_RATE), 
+								   c.getString(QUESTION_COL_TEXT));
+		}
+		return ret;
 	}
 	
 	/*
@@ -244,7 +288,18 @@ public class SQDBAdapter {
 	 * Adds the question in the database
 	 */
 	public void addQuestion (Question q) {
-		//TODO
+		ContentValues a = new ContentValues ();
+		a.put(QUESTION_KEY_TOPICID, q.getTopicID());
+		a.put(QUESTION_KEY_TITLE, q.getTitle());
+		a.put(QUESTION_KEY_USERID, q.getUser().getID());
+		a.put(QUESTION_KEY_TIMECREATE, q.getTimeCreate());
+		a.put(QUESTION_KEY_TIMEOUT, q.getTimeout());
+		a.put(QUESTION_KEY_STATUS, q.getStatus());
+		a.put(QUESTION_KEY_RATE, q.getRate());
+		a.put(QUESTION_KEY_TEXT, q.getText());
+		
+		Log.d("db", "adding " + q.getTitle());
+		db.insert(QUESTION_TABLE_NAME, null, a);
 	}
 	
 	/*
@@ -252,6 +307,22 @@ public class SQDBAdapter {
 	 */
 	public void addAnswer (Answer answer) {
 		//TODO
+	}
+	
+	/*
+	 * returns topic id by topic name
+	 */
+	public int getTopicId (String name) {
+		String selection = TOPIC_KEY_NAME + "=" + "\"" + name + "\"";
+		
+		Cursor c = db.query(TOPIC_TABLE_NAME, new String[] {TOPIC_KEY_ID}, selection, null, null, null, null);
+		
+		c.moveToNext();
+		if (c == null || c.isAfterLast()) {
+			return -1;
+		}
+		
+		return c.getInt(TOPICUSER_COL_ID);
 	}
 	
 	/*
