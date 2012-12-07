@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".SQAuthorization"
+            android:name="ru.petrsu.smartquestions.SQAuthorization"
             android:label="@string/title_activity_sqauthorization" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SQRegistration"
+            android:name="ru.petrsu.smartquestions.SQRegistration"
             android:label="@string/title_activity_sqregistration" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="SQAuthoriztion" />
+        </activity>
+        <activity
+            android:name="ru.petrsu.smartquestions.SQProfile"
+            android:label="@string/title_activity_sqprofile" >
         </activity>
     </application>
 

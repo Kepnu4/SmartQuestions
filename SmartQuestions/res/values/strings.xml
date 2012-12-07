@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">SmartQuestions</string>
@@ -16,5 +17,17 @@
     <string name="RegistrationPasswordString">Password</string>
     <string name="RegistrationTopicsString">Topics</string>
     <string name="RegistrationSendString">Send</string>
+    <string name="title_activity_sqprofile">SQProfile</string>
+    <string name="rating">Рейтинг</string>
+    <string name="exit">Выход</string>
+    <string name="myAnswers">Мои ответы</string>
+    <string name="myQuestions">Мои вопросы</string>
+    <string name="answer">Отвечать</string>
+    <string name="placeQuestion">Разместить вопрос</string>
+    
+    <string name="preferences_login_key">login</string>
+    <string name="preferences_password_key">password</string>
+    
+    <string name="file_preferences">myPreferences</string>
 
 </resources>

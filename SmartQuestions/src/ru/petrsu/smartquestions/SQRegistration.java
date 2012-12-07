@@ -3,6 +3,9 @@ package ru.petrsu.smartquestions;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
@@ -42,6 +45,9 @@ public class SQRegistration extends Activity implements OnClickListener{
 	private SQDBAdapter db;
 	
 	private String[] stringTopics;
+	
+	private String stringLogin;
+	private String stringPassword;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,10 +96,10 @@ public class SQRegistration extends Activity implements OnClickListener{
      * validates all shit
      */
     private int validate () {
-    	String log = login.getText().toString();
-    	String pass = password.getText().toString();
+    	stringLogin = login.getText().toString();
+    	stringPassword = password.getText().toString();
     	
-    	if (log == null || log.isEmpty() || pass == null || pass.isEmpty()) {
+    	if (stringLogin == null || stringLogin.isEmpty() || stringPassword == null || stringPassword.isEmpty()) {
     		return ERROR_EMPTY_FIELDS;
     	}
     	
@@ -103,7 +109,7 @@ public class SQRegistration extends Activity implements OnClickListener{
     		return ERROR_NO_TOPICS;
     	}
 
-    	if (db.ifUserExist(log)) {
+    	if (db.ifUserExist(stringLogin)) {
     		return ERROR_ALREADY_EXIST;
     	}
     	
@@ -132,14 +138,17 @@ public class SQRegistration extends Activity implements OnClickListener{
     	Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     	
     	if (ok) {
-    		String nickname = login.getText().toString();
-    		String pass = password.getText().toString();
+    		db.addUser(new User (stringLogin, stringPassword,  "", START_RATE), getCheckedTopics());
     		
-    		Log.d("add", pass);
+    		SharedPreferences s = getPreferences(MODE_PRIVATE);
+    		Editor e = s.edit();
     		
-    		db.addUser(new User (nickname, pass,  "", START_RATE), getCheckedTopics());
+    		e.putString(getString(R.string.preferences_login_key), stringLogin);
+    		e.putString(getString (R.string.preferences_password_key), stringPassword);
     		
-    		//TODO
+    		e.commit();
+    		
+    		startActivity (new Intent (this, SQProfile.class));
     	}
     }
 

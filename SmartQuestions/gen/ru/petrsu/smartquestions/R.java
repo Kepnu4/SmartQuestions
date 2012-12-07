@@ -19,22 +19,32 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
+        public static final int ButtonAnswer=0x7f080008;
         public static final int ButtonEnter=0x7f080002;
+        public static final int ButtonExit=0x7f08000b;
+        public static final int ButtonMyAnswers=0x7f08000a;
+        public static final int ButtonMyQuestions=0x7f080009;
+        public static final int ButtonPlaceQuestion=0x7f080007;
         public static final int ButtonRegister=0x7f080003;
-        public static final int ButtonSend=0x7f080006;
+        public static final int ButtonSend=0x7f08000e;
         public static final int EditTextLogin=0x7f080000;
-        public static final int EditTextName=0x7f080004;
+        public static final int EditTextName=0x7f08000c;
         public static final int EditTextPassword=0x7f080001;
-        public static final int GridViewTopics=0x7f080005;
-        public static final int menu_settings=0x7f080007;
+        public static final int GridViewTopics=0x7f08000d;
+        public static final int TextViewNickname=0x7f080005;
+        public static final int TextViewRating=0x7f080006;
+        public static final int imageView1=0x7f080004;
+        public static final int menu_settings=0x7f08000f;
     }
     public static final class layout {
         public static final int activity_authorization=0x7f030000;
-        public static final int activity_registration=0x7f030001;
-        public static final int gridview_item=0x7f030002;
+        public static final int activity_profile=0x7f030001;
+        public static final int activity_registration=0x7f030002;
+        public static final int gridview_item=0x7f030003;
     }
     public static final class menu {
         public static final int activity_authorization=0x7f070000;
+        public static final int activity_profile=0x7f070001;
     }
     public static final class string {
         public static final int ButtonEnter=0x7f040004;
@@ -44,10 +54,20 @@ public final class R {
         public static final int RegistrationPasswordString=0x7f040009;
         public static final int RegistrationSendString=0x7f04000b;
         public static final int RegistrationTopicsString=0x7f04000a;
+        public static final int answer=0x7f040011;
         public static final int app_name=0x7f040000;
+        public static final int exit=0x7f04000e;
+        public static final int file_preferences=0x7f040015;
         public static final int hello_world=0x7f040001;
         public static final int menu_settings=0x7f040002;
+        public static final int myAnswers=0x7f04000f;
+        public static final int myQuestions=0x7f040010;
+        public static final int placeQuestion=0x7f040012;
+        public static final int preferences_login_key=0x7f040013;
+        public static final int preferences_password_key=0x7f040014;
+        public static final int rating=0x7f04000d;
         public static final int title_activity_sqauthorization=0x7f040003;
+        public static final int title_activity_sqprofile=0x7f04000c;
         public static final int title_activity_sqregistration=0x7f040007;
     }
     public static final class style {

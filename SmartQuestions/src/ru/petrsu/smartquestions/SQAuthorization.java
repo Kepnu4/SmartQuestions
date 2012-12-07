@@ -3,6 +3,9 @@ package ru.petrsu.smartquestions;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +29,9 @@ public class SQAuthorization extends Activity implements OnClickListener{
 	
 	private Button enter;
 	private Button register;
+	
+	private String stringLogin;
+	private String stringPassword;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,17 +62,17 @@ public class SQAuthorization extends Activity implements OnClickListener{
      * validates text in login and password and checks all shit 
      */
     private int validate () {
-    	String log = login.getText().toString();
-    	String pass = password.getText().toString();
+    	stringLogin = login.getText().toString();
+    	stringPassword = password.getText().toString();
     	
-    	if (log == null || log.equals("") || pass == null || pass.equals("")) {
+    	if (stringLogin == null || stringLogin.equals("") || stringPassword == null || stringPassword.equals("")) {
     		return ERROR_EMPTY_FIELDS;
     	}
     	
     	SQDBAdapter db = new SQDBAdapter (this);
     	db.open();
     	
-    	if (!db.ifUserExist(log, pass)) {
+    	if (!db.ifUserExist(stringLogin, stringPassword)) {
     		return ERROR_NOT_EXIST;
     	}
     	return NO_ERRORS;
@@ -92,7 +98,16 @@ public class SQAuthorization extends Activity implements OnClickListener{
     	
     	if (ok) {
     		//Start new activity here
-    		//TODO;
+    		SharedPreferences s = getSharedPreferences(getString(R.string.file_preferences), MODE_PRIVATE);
+    		Editor e = s.edit();
+    		
+    		e.putString(getString(R.string.preferences_login_key), stringLogin);
+    		e.putString(getString(R.string.preferences_password_key), stringPassword);
+    		
+    		e.commit();
+    		
+    		Log.d ("here", s.getString(getString(R.string.preferences_login_key), ""));
+    		startActivity (new Intent (this, SQProfile.class));
     	}
     }
 

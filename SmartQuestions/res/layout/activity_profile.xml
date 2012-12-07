@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SQProfile" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="19dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/TextViewNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/RegistrationNameString" />
+
+    <TextView
+        android:id="@+id/TextViewRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextViewNickname"
+        android:layout_below="@+id/TextViewNickname"
+        android:text="@string/rating"/>
+
+    <Button
+        android:id="@+id/ButtonPlaceQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextViewRating"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="63dp"
+        android:text="@string/placeQuestion" />
+
+    <Button
+        android:id="@+id/ButtonAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ButtonPlaceQuestion"
+        android:layout_centerVertical="true"
+        android:text="@string/answer" />
+
+    <Button
+        android:id="@+id/ButtonMyQuestions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ButtonAnswer"
+        android:layout_below="@+id/ButtonAnswer"
+        android:text="@string/myQuestions" />
+
+    <Button
+        android:id="@+id/ButtonMyAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ButtonMyQuestions"
+        android:layout_below="@+id/ButtonMyQuestions"
+        android:text="@string/myAnswers" />
+
+    <Button
+        android:id="@+id/ButtonExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ButtonMyAnswers"
+        android:layout_below="@+id/ButtonMyAnswers"
+        android:text="@string/exit" />
+
+</RelativeLayout>
