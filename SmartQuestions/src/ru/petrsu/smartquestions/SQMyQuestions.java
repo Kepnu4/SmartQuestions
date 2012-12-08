@@ -2,6 +2,7 @@ package ru.petrsu.smartquestions;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class SQMyQuestions extends Activity {
@@ -48,7 +48,7 @@ public class SQMyQuestions extends Activity {
 	}
 	
 	private void getQuestions () {
-		questions = db.getAllQuestions(user);
+		questions = db.getAllQuestions(user, true);
 		Log.d("myq", questions.length + "");
 		
 		for (int i = 0;i < questions.length;i++) {
@@ -66,12 +66,14 @@ public class SQMyQuestions extends Activity {
 		layout.setOnItemClickListener(new OnItemClickListener () {
 
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+				Log.d("quest", "clicked");
 				Editor e = prefs.edit();
 				e.putInt(getString (R.string.preferences_question_id_key), questions[position].getID());
 				e.commit();
 				
 				//Start question browser activity
-				//TODO
+				Log.d ("quest", "start " + questions[position].getTitle());
+				startActivity (new Intent (getBaseContext(), SQQuestionBrowser.class));
 			}
 			
 		});

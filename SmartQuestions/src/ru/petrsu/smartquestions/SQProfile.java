@@ -84,7 +84,7 @@ public class SQProfile extends Activity implements OnClickListener{
 			startActivity (new Intent (this, SQPlaceQuestion.class));
 			break;
 		case R.id.ButtonAnswer:
-			//TODO
+			startActivity (new Intent (this, SQAnswer.class));
 			break;
 		case R.id.ButtonMyAnswers:
 			//TODO
@@ -93,7 +93,7 @@ public class SQProfile extends Activity implements OnClickListener{
 			startActivity (new Intent (this, SQMyQuestions.class));
 			break;
 		case R.id.ButtonExit:
-			//TODO
+			finish();
 			break;
 		}
 	}

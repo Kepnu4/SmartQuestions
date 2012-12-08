@@ -109,6 +109,7 @@ public class SQAuthorization extends Activity implements OnClickListener{
     		
     		Log.d ("here", s.getString(getString(R.string.preferences_login_key), ""));
     		startActivity (new Intent (this, SQProfile.class));
+    		finish();
     	}
     }
 

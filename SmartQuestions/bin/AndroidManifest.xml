@@ -40,6 +40,14 @@
             android:name="ru.petrsu.smartquestions.SQMyQuestions"
             android:label="@string/title_activity_sqmy_questions" >
         </activity>
+        <activity
+            android:name="ru.petrsu.smartquestions.SQQuestionBrowser"
+            android:label="@string/title_activity_sqquestion_browser" >
+        </activity>
+        <activity
+            android:name="ru.petrsu.smartquestions.SQAnswer"
+            android:label="@string/title_activity_sqanswer" >
+        </activity>
     </application>
 
 </manifest>

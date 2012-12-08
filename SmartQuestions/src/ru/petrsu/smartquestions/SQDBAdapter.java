@@ -238,10 +238,45 @@ public class SQDBAdapter {
 	}
 	
 	/*
-	 * Returns all questions that was ever asked by the user
+	 * returns question by question id
 	 */
-	public Question[] getAllQuestions (User user) {
-		String selection = QUESTION_KEY_USERID + "=" + user.getID();
+	
+	public Question getQuestionById (int id) {
+		String selection = QUESTION_KEY_ID + "=" + id;
+		
+		Cursor c = db.query(QUESTION_TABLE_NAME, new String[] {QUESTION_KEY_ID,
+				   											   QUESTION_KEY_TOPICID,
+				   											   QUESTION_KEY_TITLE,
+				   											   QUESTION_KEY_USERID,
+				   											   QUESTION_KEY_TIMECREATE,
+				   											   QUESTION_KEY_TIMEOUT,
+				   											   QUESTION_KEY_STATUS,
+				   											   QUESTION_KEY_RATE,
+				   											   QUESTION_KEY_TEXT },
+				   											   selection, null, null, null, null);
+		if (c == null || !c.moveToNext()) {
+			return null;
+		}
+		return new Question (c.getInt(QUESTION_COL_ID), c.getInt(QUESTION_COL_TOPICID),
+				   			 c.getString(QUESTION_COL_TITLE), getUserById (c.getInt(QUESTION_COL_USERID)),
+				   			 c.getString(QUESTION_COL_TIMECREATE), c.getInt(QUESTION_COL_TIMEOUT),
+				   			 c.getInt(QUESTION_COL_STATUS), c.getInt(QUESTION_COL_RATE), 
+				   			 c.getString(QUESTION_COL_TEXT));
+	}
+	
+	/*
+	 * Returns all questions that was ever asked by the user
+	 * @param him true if need to get question of this user 
+	 * 			  false if need to get all question but not from this user
+	 */
+	public Question[] getAllQuestions (User user, boolean him) {
+		String selection;
+		
+		if (him) {
+			selection = QUESTION_KEY_USERID + "=" + user.getID();
+		} else {
+			selection = QUESTION_KEY_USERID + "!=" + user.getID();
+		}
 		
 		Cursor c = db.query(QUESTION_TABLE_NAME, new String[] {QUESTION_KEY_ID,
 															   QUESTION_KEY_TOPICID,
@@ -253,6 +288,10 @@ public class SQDBAdapter {
 															   QUESTION_KEY_RATE,
 															   QUESTION_KEY_TEXT },
 															   selection, null, null, null, null);
+		if (c == null) {
+			return null;
+		}
+		
 		Question[] ret = new Question[c.getCount()];
 		
 		Log.d("db", ret.length + " " + user.getID());
@@ -310,6 +349,20 @@ public class SQDBAdapter {
 	}
 	
 	/*
+	 * returns topic by id
+	 */
+	public String getTopicById (int id) {
+		String selection = TOPIC_KEY_ID + "=" + id;
+		
+		Cursor c = db.query(TOPIC_TABLE_NAME, new String[] {TOPIC_KEY_NAME}, selection, null, null, null, null);
+		
+		if (c == null || !c.moveToNext()) {
+			return null;
+		}
+		return c.getString(0);
+	}
+	
+	/*
 	 * returns topic id by topic name
 	 */
 	public int getTopicId (String name) {
@@ -317,8 +370,8 @@ public class SQDBAdapter {
 		
 		Cursor c = db.query(TOPIC_TABLE_NAME, new String[] {TOPIC_KEY_ID}, selection, null, null, null, null);
 		
-		c.moveToNext();
-		if (c == null || c.isAfterLast()) {
+		
+		if (c == null || !c.moveToNext()) {
 			return -1;
 		}
 		

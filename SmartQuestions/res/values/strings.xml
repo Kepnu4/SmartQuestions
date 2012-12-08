@@ -18,6 +18,12 @@
     <string name="RegistrationTopicsString">Topics</string>
     <string name="RegistrationSendString">Send</string>
     <string name="title_activity_sqprofile">SQProfile</string>
+    <string name="title">Title</string>
+    <string name="topic">Topic</string>
+    <string name="award">Award</string>
+    <string name="timeleft">Timeleft</string>
+    <string name="back">Back</string>
+    <string name="show_answer">Show answer</string>
     <string name="rating">Рейтинг</string>
     <string name="exit">Выход</string>
     <string name="myAnswers">Мои ответы</string>
@@ -38,5 +44,9 @@
     <string name="error_empty_fields">empty field</string>
     <string name="error_no_errors">fine</string>
     <string name="title_activity_sqmy_questions">SQMyQuestions</string>
+    <string name="title_activity_sqquestion_browser">SQQuestionBrowser</string>
+    <string name="title_activity_sqanswer">SQAnswer</string>
+    <string name="accept">accept</string>
+    <string name="next">Next question</string>
 
 </resources>

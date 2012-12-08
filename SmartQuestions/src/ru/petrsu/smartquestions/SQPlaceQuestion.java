@@ -138,7 +138,7 @@ public class SQPlaceQuestion extends Activity implements OnClickListener{
 			tryToPlaceQuestion();
 			break;
 		case R.id.ButtonBack:
-			//TODO
+			finish();
 			break;
 		}
 	}
