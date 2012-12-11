@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextVievNickname"
+        android:layout_below="@+id/TextViewNickname"
         android:text="@string/title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -45,31 +45,41 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/ButtonBack"
+        android:id="@+id/ButtonNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextViewText"
-        android:layout_below="@+id/TextViewText"
-        android:layout_marginTop="82dp"
-        android:text="@string/back" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/TextViewText"
+        android:text="@string/next" />
 
     <Button
         android:id="@+id/ButtonAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ButtonBack"
-        android:layout_alignBottom="@+id/ButtonBack"
-        android:layout_alignRight="@+id/TextViewText"
-        android:layout_marginRight="52dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/ButtonNext"
         android:text="@string/accept" />
 
     <Button
-        android:id="@+id/ButtonNext"
+        android:id="@+id/ButtonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ButtonBack"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/ButtonBack"
-        android:text="@string/next" />
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/ButtonAccept"
+        android:text="@string/back" />
+
+    <EditText
+        android:id="@+id/EditTextAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ButtonNext"
+        android:layout_marginBottom="54dp"
+        android:layout_toRightOf="@+id/TextViewTitle"
+        android:ems="10"
+        android:hint="@string/hine_answer"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

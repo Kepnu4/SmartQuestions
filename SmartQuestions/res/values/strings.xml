@@ -32,7 +32,8 @@
     <string name="placeQuestion">Разместить вопрос</string>
     <string name="preferences_login_key">login</string>
     <string name="preferences_password_key">password</string>
-    <string name="preferences_question_id_key">password</string>
+    <string name="preferences_question_id_key">question_id</string>
+    <string name="preferences_answer_id_key">answer_id</string>
     <string name="file_preferences">myPreferences</string>
     <string name="title_activity_sqplace_question">SQPlaceQuestion</string>
     <string name="placeQuestionButtonSend">Send</string>
@@ -48,5 +49,8 @@
     <string name="title_activity_sqanswer">SQAnswer</string>
     <string name="accept">accept</string>
     <string name="next">Next question</string>
+    <string name="hine_answer">Type answer here...</string>
+    <string name="title_activity_sqanswer_browser">SQAnswerBrowser</string>
+    <string name="decline">Decline</string>
 
 </resources>

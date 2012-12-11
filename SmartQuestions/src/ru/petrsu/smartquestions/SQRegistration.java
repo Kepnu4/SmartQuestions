@@ -24,7 +24,7 @@ public class SQRegistration extends Activity implements OnClickListener{
 
 	private static final int NO_ERRORS = 0;
 	
-	private static final String ERROR_STRING_EMPTY_FIELDS = "Ћогин заху€чь мудила";
+	private static final String ERROR_STRING_EMPTY_FIELDS = "Ћогин";
 	private static final String ERROR_STRING_ALREADY_EXIST = "user exists";
 	private static final String ERROR_STRING_NO_ERRORS = "¬се идет по плану";
 	private static final String ERROR_STRING_NO_TOPICS = "Need to chose at least one topic";
@@ -93,7 +93,8 @@ public class SQRegistration extends Activity implements OnClickListener{
     	stringLogin = login.getText().toString();
     	stringPassword = password.getText().toString();
     	
-    	if (stringLogin == null || stringLogin.isEmpty() || stringPassword == null || stringPassword.isEmpty()) {
+    	if (stringLogin == null || stringLogin.length() == 0 
+    		|| stringPassword == null || stringPassword.length() == 0) {
     		return ERROR_EMPTY_FIELDS;
     	}
     	

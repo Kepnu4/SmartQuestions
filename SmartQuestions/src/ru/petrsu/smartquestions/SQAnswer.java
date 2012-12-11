@@ -7,10 +7,13 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SQAnswer extends Activity implements OnClickListener{
+	
+	private EditText EditTextAnswer;
 	
 	private TextView TextViewNickname;
 	private TextView TextViewTitle;
@@ -26,6 +29,7 @@ public class SQAnswer extends Activity implements OnClickListener{
 	private User user;
 	
 	private Question[] questions;
+	private Question currentQuestion;
 	
 	private SharedPreferences prefs;
 	
@@ -62,6 +66,8 @@ public class SQAnswer extends Activity implements OnClickListener{
 	}
 	
 	private void initLayout() {
+		EditTextAnswer = (EditText) findViewById (R.id.EditTextAnswer);
+		
 		TextViewNickname = (TextView)findViewById (R.id.TextViewNickname);
 		TextViewTitle = (TextView)findViewById (R.id.TextViewTitle);
 		TextViewAward = (TextView)findViewById (R.id.TextViewAward);
@@ -88,8 +94,21 @@ public class SQAnswer extends Activity implements OnClickListener{
 		TextViewAward.setText(getString (R.string.award) + ": " + questions[position].getRate());
 		TextViewText.setText(questions[position].getText());
 		
+		EditTextAnswer.setText("");
+		
+		currentQuestion = questions[position];
 		position++;
 	}
+	
+	private void tryToSend () {
+		Answer a = new Answer (currentQuestion, user,
+								"", Answer.STATUS_NO_RESPONCE, currentQuestion.getRate(), 
+								EditTextAnswer.getText().toString());
+		db.addAnswer(a);
+		db.updateQuestionStatus (currentQuestion, Question.STATUS_WITH_ANSWER);
+		
+		Toast.makeText(this, "The answer is sent", Toast.LENGTH_SHORT).show();
+}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,8 +120,7 @@ public class SQAnswer extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ButtonAccept:
-			//TODO
-			break;
+			tryToSend ();
 		case R.id.ButtonNext:
 			setNextQuestion();
 			break;

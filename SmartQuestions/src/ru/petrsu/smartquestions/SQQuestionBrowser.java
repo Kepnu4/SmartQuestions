@@ -2,7 +2,10 @@ package ru.petrsu.smartquestions;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,6 +49,7 @@ public class SQQuestionBrowser extends Activity implements OnClickListener{
 		int id = prefs.getInt(getString (R.string.preferences_question_id_key), -1);
 		
 		question = db.getQuestionById(id);
+		Log.d("myq", question.getTitle() + " " + question.getStatus());
 	}
 	
 	private void getTopic () {
@@ -88,9 +92,12 @@ public class SQQuestionBrowser extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ButtonShowAnswer:
-			//TODO
+			Editor e = prefs.edit();
+			e.putInt(getString (R.string.preferences_answer_id_key), db.getAnswerByQuestion (question).getID());
+			e.commit();
+			startActivity (new Intent (this, SQAnswerBrowser.class));
 			break;
-		case R.id.ButtonBack:
+		case R.id.ButtonBack: 
 			finish();
 			break;
 		}	

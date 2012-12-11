@@ -20,7 +20,7 @@ public class SQAuthorization extends Activity implements OnClickListener{
 
 	private static final int NO_ERRORS = 0;
 	
-	private static final String ERROR_STRING_EMPTY_FIELDS = "Логин захуячь мудила";
+	private static final String ERROR_STRING_EMPTY_FIELDS = "Логин";
 	private static final String ERROR_STRING_NOT_EXIST = "Неправильный логин или пароль";
 	private static final String ERROR_STRING_NO_ERRORS = "Все идет по плану";
 	
@@ -73,6 +73,7 @@ public class SQAuthorization extends Activity implements OnClickListener{
     	SQDBAdapter db = new SQDBAdapter (this);
     	db.open();
     	
+    	Log.d("auth", stringLogin + stringPassword);
     	if (!db.ifUserExist(stringLogin, stringPassword)) {
     		return ERROR_NOT_EXIST;
     	}

@@ -48,6 +48,10 @@
             android:name="ru.petrsu.smartquestions.SQAnswer"
             android:label="@string/title_activity_sqanswer" >
         </activity>
+        <activity
+            android:name="ru.petrsu.smartquestions.SQAnswerBrowser"
+            android:label="@string/title_activity_sqanswer_browser" >
+        </activity>
     </application>
 
 </manifest>

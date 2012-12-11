@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class SQDBAdapter {
 	protected static String DATABASE_NAME = "SimpleQuestions";
-	protected static int DATABASE_VERSION = 5;
+	protected static int DATABASE_VERSION = 7;
 	
 	//tblUsers constants
 	public static String USER_TABLE_NAME = "tblUsers";
@@ -169,7 +169,8 @@ public class SQDBAdapter {
 	public boolean ifUserExist (String nickname, String password) {
 		User a = getUserByNickname (nickname);
 		
-		Log.d("db", "start checkin " + a.getNickname() + a.getPassword());
+		if (a != null)
+			Log.d("db", "start checkin " + a.getNickname() + a.getPassword());
 		if (a == null || !password.equals(a.getPassword())) {
 			Log.d("db", "check:false");
 			return false;
@@ -190,9 +191,8 @@ public class SQDBAdapter {
 															USER_KEY_PASSWORD,
 															USER_KEY_DATE, 
 															USER_KEY_RATE }, selection, null, null, null, null);
-		c.moveToNext();
 		
-		if (c == null || c.isAfterLast()) {
+		if (c == null || !c.moveToNext()) {
 			return null;
 		}
 		
@@ -308,6 +308,31 @@ public class SQDBAdapter {
 	}
 	
 	/*
+	 * update question status
+	 */
+	public void updateQuestionStatus (Question q, int status) {
+		String selection = QUESTION_KEY_ID + "=" + q.getID();
+		
+		ContentValues a = new ContentValues ();
+		a.put(QUESTION_KEY_STATUS, status);
+		
+		db.update(QUESTION_TABLE_NAME, a, selection, null);
+		Log.d("db", "after update: " + getQuestionById(q.getID()).getStatus() + " " + status);
+	}
+	
+	/*
+	 * updates answer status
+	 */
+	public void updateAnswerStatus (Answer answer, int status) {
+		String selection = ANSWER_KEY_ID + "=" + answer.getID();
+		
+		ContentValues a = new ContentValues ();
+		a.put(ANSWER_KEY_STATUS, status);
+		
+		db.update(ANSWER_TABLE_NAME, a, selection, null);
+	}
+	
+	/*
 	 * Returns all answers that was ever given by the user
 	 */
 	public ArrayList <Answer> getAllAnswersFromUser (User user) {
@@ -321,6 +346,52 @@ public class SQDBAdapter {
 	public ArrayList <Answer> getAllAnswersFromQuestion (Question q) {
 		//TODO
 		return null;
+	}
+	
+	/*
+	 * returns answer without response to the question 
+	 */
+	public Answer getAnswerByQuestion (Question q) {
+		String selection = ANSWER_KEY_QUESTIONID + "=" + q.getID() + " AND " + " ( " +
+						   ANSWER_KEY_STATUS + "=" + Answer.STATUS_NO_RESPONCE + " OR " + 
+						   ANSWER_KEY_STATUS + "=" + Answer.STATUS_ACCEPTED + " )";
+		Cursor c = db.query(ANSWER_TABLE_NAME, new String[] { ANSWER_KEY_ID,
+															  ANSWER_KEY_QUESTIONID,
+															  ANSWER_KEY_USERID,
+															  ANSWER_KEY_TIMECREATE,
+															  ANSWER_KEY_STATUS,
+															  ANSWER_KEY_RATE,
+															  ANSWER_KEY_TEXT }, selection, null, null, null, null);
+		if (c == null || !c.moveToNext()) {
+			return null;
+		}
+		
+		return new Answer(c.getInt(ANSWER_COL_ID), q, getUserById (c.getInt(ANSWER_COL_USERID)), 
+						  c.getString(ANSWER_COL_TIMECREATE), c.getInt(ANSWER_COL_STATUS), 
+						  c.getInt(ANSWER_COL_RATE), c.getString(ANSWER_COL_TEXT));
+	}
+	
+	/*
+	 * returns answer by id
+	 */
+	public Answer getAnswerById (int id) {
+		String selection = ANSWER_KEY_ID + "=" + id;
+		
+		Cursor c = db.query(ANSWER_TABLE_NAME, new String[] { ANSWER_KEY_ID,
+				  											  ANSWER_KEY_QUESTIONID,
+				  											  ANSWER_KEY_USERID,
+				  											  ANSWER_KEY_TIMECREATE,
+				  											  ANSWER_KEY_STATUS,
+				  											  ANSWER_KEY_RATE,
+				  											  ANSWER_KEY_TEXT }, selection, null, null, null, null);
+		if (c == null || !c.moveToNext()) {
+			return null;
+		}
+
+		return new Answer(c.getInt(ANSWER_COL_ID), getQuestionById (c.getInt(ANSWER_COL_QUESTIONID)), 
+						  getUserById (c.getInt(ANSWER_COL_USERID)), 
+						  c.getString(ANSWER_COL_TIMECREATE), c.getInt(ANSWER_COL_STATUS), 
+						  c.getInt(ANSWER_COL_RATE), c.getString(ANSWER_COL_TEXT));
 	}
 	
 	/*
@@ -345,7 +416,15 @@ public class SQDBAdapter {
 	 * Adds the answer in the database
 	 */
 	public void addAnswer (Answer answer) {
-		//TODO
+		ContentValues a = new ContentValues ();
+		a.put(ANSWER_KEY_QUESTIONID, answer.getQuestion().getID());
+		a.put(ANSWER_KEY_USERID, answer.getUser().getID());
+		a.put(ANSWER_KEY_TIMECREATE, answer.getTimeCreate());
+		a.put(ANSWER_KEY_STATUS, answer.getStatus());
+		a.put(ANSWER_KEY_RATE, answer.getRate());
+		a.put(ANSWER_KEY_TEXT, answer.getText());
+		
+		db.insert(ANSWER_TABLE_NAME, null, a);
 	}
 	
 	/*
